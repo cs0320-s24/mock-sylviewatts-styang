@@ -5,6 +5,7 @@ import { REPLInput } from "./REPLInput";
 import { REPLFunction } from "./REPLFunction";
 import { loadCSVMock } from "./LoadCSVMock";
 import { viewCSVMock } from "./ViewCSVMock";
+import { searchCSVMock } from "./SearchCSVMock";
 
 /* 
   You'll want to expand this component (and others) for the sprints! Remember 
@@ -35,9 +36,18 @@ export default function REPL() {
     }
   };
 
+  const searchCSVMockWrapper: REPLFunction = (args: string[]) => {
+    if (typeof loadedData === "undefined") {
+      return "File not loaded";
+    } else {
+      return searchCSVMock(args, loadedData);
+    }
+  };
+
   const commandMap = new Map<string, REPLFunction>();
   commandMap.set("load_file", loadCSVMockWrapper);
   commandMap.set("view", viewCSVMockWrapper);
+  commandMap.set("search", searchCSVMockWrapper);
 
   //commandMap.set("search", searchCSVMock);
 

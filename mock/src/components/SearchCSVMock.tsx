@@ -12,6 +12,11 @@ import { REPLFunction } from "./REPLFunction";
 //   columnName: string;
 // }
 
+export function searchCSVMock(args: string[], loadedData: string[][]) : string  {
+  // need to fix / fill (can use if/then statements based on args)
+  return ""
+}
+
 export const searchCitiesClimateHumidContinental: REPLFunction = (
   columnNameAndValue: string[]
 ) => {
