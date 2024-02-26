@@ -2,13 +2,19 @@ import { Dispatch, SetStateAction, useState } from "react";
 import "../styles/main.css";
 import { ControlledInput } from "./ControlledInput";
 import { loadCSVMock } from "./LoadCSVMock";
-import {viewCSVMock } from "./ViewCSVMock";
+import { viewCSVMock } from "./ViewCSVMock";
+import {
+  searchAnimals3Black,
+  searchCitiesClimateHumidContinental,
+} from "./SearchCSVMock";
+import { REPLFunction } from "./REPLFunction";
 
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands
   // CHANGED
   history: string[];
   setHistory: Dispatch<SetStateAction<string[]>>;
+  commandMap: Map<string, REPLFunction>;
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -19,34 +25,41 @@ export function REPLInput(props: REPLInputProps) {
   // TODO WITH TA : add a count state
   const [count, setCount] = useState<number>(0);
 
-  
   // Set data
-  const [data, setData] = useState<string[][]>()
+  //const [data, setData] = useState<string[][]>();
+
+  const [fileLoaded, setFileLoaded] = useState<boolean>(false);
 
   // This function is triggered when the button is clicked.
   function handleSubmit(commandString: string) {
     setCount(count + 1);
     // CHANGED
 
-    //TODO: look into this, fix
+    const args = commandString.split(" ");
+    const commandName = args[0];
 
-    //TODO: ADD other commands, and then switch modes with default and verbose (add command as well: commandString + loadCSVMock)
-    //question: do we want to print in the history things that are not commands?
-    //somewhere tell user how to write their commands
-    if (commandString.startsWith("load_file ")) {
-      const fileName = commandString.split(" ")[1];
-      const fileData = loadCSVMock({filename: fileName})
-      setData(fileData)
-      props.setHistory([...props.history, "Loaded " + fileName]);
-    } else if (commandString === "view") {
-      if (typeof data === "undefined") {
-        props.setHistory([...props.history, "File not loaded"]);
+    if (props.commandMap.has(commandName)) {
+      const commandFunction = props.commandMap.get(commandName);
+      if (typeof commandFunction === "undefined") {
+        props.setHistory([
+          ...props.history,
+          "Command not found: " + commandName,
+        ]);
       } else {
-      props.setHistory([...props.history, viewCSVMock({data: data})])
+        const result = commandFunction(args.slice(1));
+        if (typeof result === "string") {
+          props.setHistory([...props.history, result]);
+        } else if (Array.isArray(result)) {
+          if (Array.isArray(result[0])) {
+            props.setHistory([
+              ...props.history,
+              ...result.map((row) => row.join(", ")),
+            ]);
+          }
+        }
       }
-    } else {
-      props.setHistory([...props.history, commandString]);
     }
+
     setCommandString("");
   }
   /**
