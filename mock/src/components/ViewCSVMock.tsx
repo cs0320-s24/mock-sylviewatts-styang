@@ -1,13 +1,10 @@
 import { getFileToData } from "./mockedJSON";
 
 interface viewCSV {
-  data : string[][]
+  data: string[][];
 }
 
-export function viewCSVMock(props: viewCSV) : string {
-  const concatenatedString = props.data.reduce((accumulator, currentValue) => {
-    return accumulator.concat(currentValue.join(', ')); // Join inner arrays with ', ' separator
-  }, '');
-
+export function viewCSVMock(props: viewCSV): string {
+  const concatenatedString = props.data.map((row) => row.join(", ")).join("; ");
   return concatenatedString;
 }
