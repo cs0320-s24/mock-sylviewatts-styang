@@ -15,6 +15,7 @@ interface REPLInputProps {
   history: string[];
   setHistory: Dispatch<SetStateAction<string[]>>;
   commandMap: Map<string, REPLFunction>;
+  setLoadedData: (data: string[][]) => void;
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -29,6 +30,10 @@ export function REPLInput(props: REPLInputProps) {
   //const [data, setData] = useState<string[][]>();
 
   const [fileLoaded, setFileLoaded] = useState<boolean>(false);
+
+
+
+
 
   // This function is triggered when the button is clicked.
   function handleSubmit(commandString: string) {
