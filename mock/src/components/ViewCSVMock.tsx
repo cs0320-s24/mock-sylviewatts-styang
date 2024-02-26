@@ -1,16 +1,13 @@
-import { getFileToData } from "./mockedJson";
+import { getFileToData } from "./mockedJSON";
 
 interface viewCSV {
-  filename: string;
+  data : string[][]
 }
 
-export function viewCSV(props: viewCSV) {
-  const fileToData = getFileToData();
-  const dataForFile = fileToData.get(props.filename);
+export function viewCSVMock(props: viewCSV) : string {
+  const concatenatedString = props.data.reduce((accumulator, currentValue) => {
+    return accumulator.concat(currentValue.join(', ')); // Join inner arrays with ', ' separator
+  }, '');
 
-  return (
-    <div className="view-CSV" aria-label="view-CSV">
-      {"result: success, data: " + dataForFile}
-    </div>
-  );
+  return concatenatedString;
 }

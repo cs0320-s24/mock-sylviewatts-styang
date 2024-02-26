@@ -1,5 +1,3 @@
-import { getFileToData } from "./mockedJson";
-
 interface actionProps {
   filename: string;
   value: string;
