@@ -16,7 +16,7 @@ export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
   // CHANGED
   const [history, setHistory] = useState<string[]>([])
-
+  
   return (
     <div className="repl">  
       {/*This is where your REPLHistory might go... You also may choose to add it within your REPLInput 

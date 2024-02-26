@@ -1,16 +1,10 @@
-import { getFileToData } from "./mockedJson";
+import { getFileToData } from "./mockedJSON";
 
 interface viewCSV {
-  filename: string;
+  data: string[][];
 }
 
-export function viewCSV(props: viewCSV) {
-  const fileToData = getFileToData();
-  const dataForFile = fileToData.get(props.filename);
-
-  return (
-    <div className="view-CSV" aria-label="view-CSV">
-      {"result: success, data: " + dataForFile}
-    </div>
-  );
+export function viewCSVMock(props: viewCSV): string {
+  const concatenatedString = props.data.map((row) => row.join(", ")).join("; ");
+  return concatenatedString;
 }

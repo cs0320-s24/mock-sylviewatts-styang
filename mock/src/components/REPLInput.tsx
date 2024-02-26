@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import "../styles/main.css";
 import { ControlledInput } from "./ControlledInput";
 import { loadCSVMock } from "./LoadCSVMock";
+import {viewCSVMock } from "./ViewCSVMock";
 
 interface REPLInputProps {
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands
@@ -18,6 +19,10 @@ export function REPLInput(props: REPLInputProps) {
   // TODO WITH TA : add a count state
   const [count, setCount] = useState<number>(0);
 
+  
+  // Set data
+  const [data, setData] = useState<string[][]>()
+
   // This function is triggered when the button is clicked.
   function handleSubmit(commandString: string) {
     setCount(count + 1);
@@ -30,7 +35,15 @@ export function REPLInput(props: REPLInputProps) {
     //somewhere tell user how to write their commands
     if (commandString.startsWith("load_file ")) {
       const fileName = commandString.split(" ")[1];
-      props.setHistory([...props.history, loadCSVMock({ filename: fileName })]);
+      const fileData = loadCSVMock({filename: fileName})
+      setData(fileData)
+      props.setHistory([...props.history, "Loaded " + fileName]);
+    } else if (commandString === "view") {
+      if (typeof data === "undefined") {
+        props.setHistory([...props.history, "File not loaded"]);
+      } else {
+      props.setHistory([...props.history, viewCSVMock({data: data})])
+      }
     } else {
       props.setHistory([...props.history, commandString]);
     }
