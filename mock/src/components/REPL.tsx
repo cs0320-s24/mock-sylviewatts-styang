@@ -5,6 +5,7 @@ import { REPLInput } from "./REPLInput";
 import { REPLFunction } from "./REPLFunction";
 import { loadCSVMock } from "./LoadCSVMock";
 import { viewCSVMock } from "./ViewCSVMock";
+import { searchCSVMock } from "./SearchCSVMock";
 
 /* 
   You'll want to expand this component (and others) for the sprints! Remember 
@@ -19,10 +20,35 @@ export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
   // CHANGED
   const [history, setHistory] = useState<string[]>([]);
+  const [loadedData, setLoadedData] = useState<string[][] | undefined>(
+    undefined
+  );
+
+  const loadCSVMockWrapper: REPLFunction = (filename: string[]) => {
+    return loadCSVMock(filename, setLoadedData);
+  };
+
+  const viewCSVMockWrapper: REPLFunction = (args: string[]) => {
+    if (typeof loadedData === "undefined") {
+      return "File not loaded";
+    } else {
+      return viewCSVMock(loadedData);
+    }
+  };
+
+  const searchCSVMockWrapper: REPLFunction = (args: string[]) => {
+    if (typeof loadedData === "undefined") {
+      return "File not loaded";
+    } else {
+      return searchCSVMock(args, loadedData);
+    }
+  };
 
   const commandMap = new Map<string, REPLFunction>();
-  commandMap.set("load_file", loadCSVMock);
-  commandMap.set("view", viewCSVMock);
+  commandMap.set("load_file", loadCSVMockWrapper);
+  commandMap.set("view", viewCSVMockWrapper);
+  commandMap.set("search", searchCSVMockWrapper);
+
   //commandMap.set("search", searchCSVMock);
 
   return (
@@ -36,6 +62,7 @@ export default function REPL() {
         history={history}
         setHistory={setHistory}
         commandMap={commandMap}
+        setLoadedData={setLoadedData}
       />
     </div>
   );
