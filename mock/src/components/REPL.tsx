@@ -19,7 +19,7 @@ import { searchCSVMock } from "./SearchCSVMock";
 //question: do we want error things printed, like if load, search, or view is called wrong should we tell them when they call it?
 //and also error when commands are not found
 export default function REPL() {
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState<(string | string[][])[]>([]);
   const [loadedData, setLoadedData] = useState<string[][] | undefined>(
     undefined
   );
@@ -63,15 +63,22 @@ export default function REPL() {
       if (outputMode === "verbose") {
         console.log("outputMode before switching: " + outputMode);
         setOutputMode("brief");
+<<<<<<< HEAD
         console.log("outputMode after switching: " + outputMode);
+=======
+        return "Response mode has been set to BRIEF"
+>>>>>>> 8819eea9408b5fdc7c8aba5b2dfeb620b5334718
       } else {
         console.log("hi");
         console.log("outputMode before switching: " + outputMode);
         setOutputMode("verbose");
+<<<<<<< HEAD
         console.log("outputMode after switching: " + outputMode);
+=======
+        return "Response mode has been set to VERBOSE"
+>>>>>>> 8819eea9408b5fdc7c8aba5b2dfeb620b5334718
       }
     }
-    return [];
   };
 
   const commandMap = new Map<string, REPLFunction>();
@@ -92,7 +99,6 @@ export default function REPL() {
         setHistory={setHistory}
         commandMap={commandMap}
         setLoadedData={setLoadedData}
-        setOutputMode={setOutputMode}
         outputMode={outputMode}
       />
     </div>
