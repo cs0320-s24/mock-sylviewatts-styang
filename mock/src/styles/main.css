@@ -5,27 +5,48 @@
 */
 
 .repl {
-    position:relative;
-    min-height:95vh;    
+  position: relative;
+  min-height: 95vh;
 }
 
-.repl-history {      
-    height:55vh;   
-    margin: auto;
-    display: block;
-    overflow: scroll;    
+.repl-history {
+  height: 55vh;
+  margin: auto;
+  display: block;
+  overflow: scroll;
 }
 
-.repl-input {        
-    margin: auto;    
-    height:10vh;
+.repl-string-history {
+  margin: auto
+}
+
+.repl-table-history {
+  margin: auto;
+  width: 90%;
+  display: block;
+}
+
+.repl-table-history table {
+  border-collapse: collapse;
+  width: 100%; 
+}
+
+.repl-table-history td {
+  border: 1px solid rgb(255, 255, 255);
+  padding: 8px;
+  text-align: center;
+}
+
+.repl-input {
+  margin: auto;
+  height: 10vh;
 }
 .repl-command-box {
-    width: 90%;            
-    margin: auto;
-    display: block;
+  width: 90%;
+  margin: auto;
+  display: block;
 }
-button{
-    margin: auto;
-    display: block;
+button {
+  margin: auto;
+  display: block;
 }

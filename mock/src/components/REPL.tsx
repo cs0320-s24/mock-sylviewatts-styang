@@ -16,20 +16,27 @@ import { searchCSVMock } from "./SearchCSVMock";
   You don't need to do that for this gearup.
 */
 
+//question: do we want error things printed, like if load, search, or view is called wrong should we tell them when they call it?
+//and also error when commands are not found
 export default function REPL() {
-  // TODO: Add some kind of shared state that holds all the commands submitted.
-  // CHANGED
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState<(string | string[][])[]>([]);
   const [loadedData, setLoadedData] = useState<string[][] | undefined>(
     undefined
   );
+  const [filename, setFilename] = useState<string | undefined>(undefined);
+  const [outputMode, setOutputMode] = useState<"brief" | "verbose">("brief");
 
   const loadCSVMockWrapper: REPLFunction = (filename: string[]) => {
-    return loadCSVMock(filename, setLoadedData);
+    if (filename.length > 1) {
+      return "Wrong number of arguments, only give filename.";
+    }
+    return loadCSVMock(filename, setLoadedData, setFilename);
   };
 
   const viewCSVMockWrapper: REPLFunction = (args: string[]) => {
-    if (typeof loadedData === "undefined") {
+    if (args.length >= 1) {
+      return "Wrong number of arguments, view does not take any.";
+    } else if (typeof loadedData === "undefined") {
       return "File not loaded";
     } else {
       return viewCSVMock(loadedData);
@@ -37,10 +44,29 @@ export default function REPL() {
   };
 
   const searchCSVMockWrapper: REPLFunction = (args: string[]) => {
-    if (typeof loadedData === "undefined") {
+    if (args.length > 2 || args.length < 1) {
+      return "Wrong number of arguments, search takes <column> <value> or <value>";
+    } else if (
+      typeof loadedData === "undefined" ||
+      typeof filename === "undefined"
+    ) {
       return "File not loaded";
     } else {
-      return searchCSVMock(args, loadedData);
+      return searchCSVMock(args, loadedData, filename);
+    }
+  };
+
+  const mode: REPLFunction = (args: string[]) => {
+    if (args.length >= 1) {
+      return "Wrong number of arguments, view does not take any.";
+    } else {
+      if (outputMode === "verbose") {
+        setOutputMode("brief");
+        return "Response mode has been set to BRIEF"
+      } else {
+        setOutputMode("verbose");
+        return "Response mode has been set to VERBOSE"
+      }
     }
   };
 
@@ -48,8 +74,7 @@ export default function REPL() {
   commandMap.set("load_file", loadCSVMockWrapper);
   commandMap.set("view", viewCSVMockWrapper);
   commandMap.set("search", searchCSVMockWrapper);
-
-  //commandMap.set("search", searchCSVMock);
+  commandMap.set("mode", mode);
 
   return (
     <div className="repl">
@@ -63,6 +88,7 @@ export default function REPL() {
         setHistory={setHistory}
         commandMap={commandMap}
         setLoadedData={setLoadedData}
+        outputMode={outputMode}
       />
     </div>
   );

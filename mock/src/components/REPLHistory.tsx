@@ -1,17 +1,38 @@
-import '../styles/main.css';
+import "../styles/main.css";
 
-interface REPLHistoryProps{
-    // TODO: Fill with some shared state tracking all the pushed commands
-    // CHANGED
-    history: string[]
+interface REPLHistoryProps {
+  // TODO: Fill with some shared state tracking all the pushed commands
+  // CHANGED
+  history: (string | string[][])[];
 }
-export function REPLHistory(props : REPLHistoryProps) {
-    return (
-        <div className="repl-history" aria-label='repl-history'>
-            {/* This is where command history will go */}
-            {/* TODO: To go through all the pushed commands... try the .map() function! */}
-            {/* CHANGED */}
-            {props.history.map((command, index) => <p>{command}</p>)}
+export function REPLHistory(props: REPLHistoryProps) {
+  const history = props.history;
+
+  return (
+    <div className="repl-history" aria-label="repl-history">
+      {history.map((command, index) => (
+        <div>
+          {typeof command === "string" ? (
+            <div className="string-history">
+              <p>{command}</p>
+            </div>
+          ) : (
+            <div className="repl-table-history">
+              <table>
+                <tbody>
+                  {command.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {row.map((cell, cellIndex) => (
+                        <td key={cellIndex}>{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-    );
+      ))}
+    </div>
+  );
 }
