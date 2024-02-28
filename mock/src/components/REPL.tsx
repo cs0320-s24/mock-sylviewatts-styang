@@ -61,9 +61,14 @@ export default function REPL() {
       return "Wrong number of arguments, view does not take any.";
     } else {
       if (outputMode === "verbose") {
+        console.log("outputMode before switching: " + outputMode);
         setOutputMode("brief");
+        console.log("outputMode after switching: " + outputMode);
       } else {
+        console.log("hi");
+        console.log("outputMode before switching: " + outputMode);
         setOutputMode("verbose");
+        console.log("outputMode after switching: " + outputMode);
       }
     }
     return [];

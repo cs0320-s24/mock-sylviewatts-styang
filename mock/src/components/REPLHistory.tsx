@@ -11,8 +11,15 @@ export function REPLHistory(props: REPLHistoryProps) {
   return (
     <div className="repl-history" aria-label="repl-history">
       {props.history.map((command, index) => (
-        <p>{command}</p>
+        <p key={index}>{command}</p>
       ))}
     </div>
   );
+  // return (
+  //   <div className="repl-history" aria-label="repl-history">
+  //     {props.history.map((command, index) => (
+  //       <p>{command}</p>
+  //     ))}
+  //   </div>
+  // );
 }
