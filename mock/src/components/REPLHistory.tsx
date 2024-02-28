@@ -21,9 +21,9 @@ export function REPLHistory(props: REPLHistoryProps) {
               <table>
                 <tbody>
                   {command.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
+                    <tr>
                       {row.map((cell, cellIndex) => (
-                        <td key={cellIndex}>{cell}</td>
+                        <td>{cell}</td>
                       ))}
                     </tr>
                   ))}
