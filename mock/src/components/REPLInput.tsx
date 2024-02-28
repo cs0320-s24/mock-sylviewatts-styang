@@ -16,6 +16,8 @@ interface REPLInputProps {
   setHistory: Dispatch<SetStateAction<string[]>>;
   commandMap: Map<string, REPLFunction>;
   setLoadedData: (data: string[][]) => void;
+  setOutputMode: Dispatch<SetStateAction<"brief" | "verbose">>;
+  outputMode: "brief" | "verbose";
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
 // REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
@@ -30,10 +32,6 @@ export function REPLInput(props: REPLInputProps) {
   //const [data, setData] = useState<string[][]>();
 
   const [fileLoaded, setFileLoaded] = useState<boolean>(false);
-
-
-
-
 
   // This function is triggered when the button is clicked.
   function handleSubmit(commandString: string) {
@@ -52,10 +50,19 @@ export function REPLInput(props: REPLInputProps) {
         ]);
       } else {
         const result = commandFunction(args.slice(1));
+        let outputString;
+        if (props.outputMode === "verbose") {
+          outputString = `Command: ${commandName}\nOutput: ${result}`;
+        } else {
+          outputString = `${result}`;
+        }
+        props.setHistory([...props.history, outputString]);
         if (typeof result === "string") {
-          props.setHistory([...props.history, result]);
+          //TODO: change this to output string
+          props.setHistory([...props.history, outputString]);
         } else if (Array.isArray(result)) {
           if (Array.isArray(result[0])) {
+            //TODO: figure out how to accurately change this to output string
             props.setHistory([
               ...props.history,
               ...result.map((row) => row.join(", ")),
@@ -67,6 +74,7 @@ export function REPLInput(props: REPLInputProps) {
 
     setCommandString("");
   }
+
   /**
    * We suggest breaking down this component into smaller components, think about the individual pieces
    * of the REPL and how they connect to each other...
