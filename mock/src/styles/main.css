@@ -16,6 +16,27 @@
   overflow: scroll;
 }
 
+.repl-string-history {
+  margin: auto
+}
+
+.repl-table-history {
+  margin: auto;
+  width: 90%;
+  display: block;
+}
+
+.repl-table-history table {
+  border-collapse: collapse;
+  width: 100%; 
+}
+
+.repl-table-history td {
+  border: 1px solid rgb(255, 255, 255);
+  padding: 8px;
+  text-align: center;
+}
+
 .repl-input {
   margin: auto;
   height: 10vh;
