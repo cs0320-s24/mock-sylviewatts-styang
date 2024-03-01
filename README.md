@@ -50,6 +50,7 @@ You can not call search for values that have spaces as we thought that could be 
 -Tests that after clicking the submitted button, the count goes up
 -Tests that an empty command returns command not found
 -Tests mode, that switching it accurately switches the mode and that the outputs change to show command and output when in verbose mode
+-Tests all of our commands in both brief and verbose modes and that it displays the data we expect
 -Tests that when loading a file that exists, the output says Loaded with the name of the file
 -Tests that when given the wrong amount of arguments for a load command, it outputs "Wrong number of arguments, only give filename.”
 -Tests that when given a bad filename (a filename that does not exist) for load it returns “Bad file name”
