@@ -47,6 +47,12 @@ test("after logging in, I can sign out and can log back in again", async ({
   await expect(page.getByLabel("Sign Out")).not.toBeVisible();
   await expect(page.getByLabel("Command input")).not.toBeVisible();
   await expect(page.getByLabel("Login")).toBeVisible();
+
+  //log back in
+  await page.getByLabel("Login").click();
+  await expect(page.getByLabel("Sign Out")).toBeVisible();
+  await expect(page.getByLabel("Command input")).toBeVisible();
+  await expect(page.getByLabel("Login")).not.toBeVisible();
 });
 
 /**
