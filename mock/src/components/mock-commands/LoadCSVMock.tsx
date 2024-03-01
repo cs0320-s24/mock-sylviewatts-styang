@@ -1,4 +1,4 @@
-import { getFileToData } from "./mockedJSON";
+import { getFileToData } from "../mock-data/mockedJSON";
 
 /**
  * Loads CSV mock data based on the specified filename.

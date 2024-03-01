@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import "../styles/main.css";
+import "../../styles/main.css";
 import { ControlledInput } from "./ControlledInput";
 import { REPLFunction } from "./REPLFunction";
 
@@ -32,7 +32,7 @@ interface REPLInputProps {
   /**
    * Determines the output mode of the REPL (brief or verbose).
    * Can be either "brief" or "verbose".
-   */ 
+   */
   outputMode: "brief" | "verbose";
 }
 

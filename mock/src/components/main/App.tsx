@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import '../styles/App.css';
-import { LoginButton } from './LoginButton';
-import REPL from './REPL';
+import { useState } from "react";
+import "../../styles/App.css";
+import { LoginButton } from "./LoginButton";
+import REPL from "../REPL/REPL";
 
 /**
  * This is the highest level component representing the entire application.
@@ -21,7 +21,7 @@ function App() {
       </p>
 
       {/* Display the REPL interface if the user is logged in */}
-      { isLoggedIn && <REPL /> }
+      {isLoggedIn && <REPL />}
     </div>
   );
 }

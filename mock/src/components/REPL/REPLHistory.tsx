@@ -1,4 +1,4 @@
-import "../styles/main.css";
+import "../../styles/main.css";
 
 /**
  * Interface containing history props for REPLHistory component.
