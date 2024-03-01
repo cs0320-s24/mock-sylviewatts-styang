@@ -30,7 +30,7 @@ export function searchCSVMock(
     args[1] === "continental" &&
     filename === "mockedCities.csv"
   ) {
-    return searchCitiesClimateHumidContinental();
+    return searchCitiesClimateContinental();
   } else if (
     args.length >= 2 &&
     args[0] === "3" &&
@@ -48,7 +48,7 @@ export function searchCSVMock(
   return [[]];
 }
 
-export const searchCitiesClimateHumidContinental = (): string[][] => {
+export const searchCitiesClimateContinental = (): string[][] => {
   return [
     [
       "New York City",

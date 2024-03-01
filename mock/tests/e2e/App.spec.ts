@@ -195,14 +195,214 @@ test("view success", async ({ page }) => {
   );
 });
 
-//view before loaded
+test("view before load", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("view");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
 
-//view wrong arguments
+  const firstChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[0]?.textContent;
+  });
 
-//test bad views
+  expect(firstChild).toContain("File not loaded");
+});
 
-//test search
+test("view wrong arguments", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
 
-//test bad searches
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("view file");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
 
-//submit TWO THINGS
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toEqual(
+    "Wrong number of arguments, view does not take any."
+  );
+});
+
+test("searchReptile success", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search Reptile");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toEqual("Boa constrictorCarnivore20GreenReptile");
+});
+
+test("searchClimateContinental success", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedCities.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search Climate continental");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toEqual(
+    "New York CityYes9 millioncontinentalUnited States of AmericaChicagoNo3 millioncontinentalUnited States of America"
+  );
+});
+
+test("search3Black success", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search 3 Black");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toEqual("Little PenguinCarnivore6BlackBird");
+});
+
+test("search before load", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search Reptile");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  const firstChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[0]?.textContent;
+  });
+
+  expect(firstChild).toContain("File not loaded");
+});
+
+test("search wrong number of arguments", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toContain(
+    "Wrong number of arguments, search takes <column> <value> or <value>"
+  );
+});
+
+test("search bad arguments", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search turtle");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  expect(secondChild).toContain("Bad arguments for search.");
+});
+
+test("running everything", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("mode");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("view");
+  await page.getByRole("button", { name: "Submitted 2 times" }).click();
+
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search Reptile");
+  await page.getByRole("button", { name: "Submitted 3 times" }).click();
+
+  const firstChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[0]?.textContent;
+  });
+
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
+
+  const thirdChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[2]?.textContent;
+  });
+
+  const fourthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[3]?.textContent;
+  });
+
+  const fifthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[4]?.textContent;
+  });
+
+  const sixthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[5]?.textContent;
+  });
+
+  const seventhChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[6]?.textContent;
+  });
+
+  const eigthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[7]?.textContent;
+  });
+
+  expect(firstChild).toContain("Loaded mockedAnimals.csv");
+  expect(secondChild).toContain("Response mode has been set to VERBOSE");
+  expect(thirdChild).toContain("Command: view");
+  expect(fourthChild).toContain("Output table below: ");
+  expect(fifthChild).toContain(
+    "NameDietAverage LifespanColorClassLittle PenguinCarnivore6BlackBirdBlack BearOmnivore10BlackMammalBoa constrictorCarnivore20GreenReptilePeregrine falconCarnivore15GreyBird"
+  );
+  expect(sixthChild).toContain("Command: search");
+  expect(seventhChild).toContain("Output table below: ");
+  expect(eigthChild).toEqual("Boa constrictorCarnivore20GreenReptile");
+});
