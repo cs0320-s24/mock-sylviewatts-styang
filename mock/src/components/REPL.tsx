@@ -27,7 +27,7 @@ export default function REPL() {
   const [outputMode, setOutputMode] = useState<"brief" | "verbose">("brief");
 
   const loadCSVMockWrapper: REPLFunction = (filename: string[]) => {
-    if (filename.length > 1) {
+    if (filename.length != 1) {
       return "Wrong number of arguments, only give filename.";
     }
     return loadCSVMock(filename, setLoadedData, setFilename);
@@ -63,20 +63,12 @@ export default function REPL() {
       if (outputMode === "verbose") {
         console.log("outputMode before switching: " + outputMode);
         setOutputMode("brief");
-<<<<<<< HEAD
-        console.log("outputMode after switching: " + outputMode);
-=======
-        return "Response mode has been set to BRIEF"
->>>>>>> 8819eea9408b5fdc7c8aba5b2dfeb620b5334718
+        return "Response mode has been set to BRIEF";
       } else {
         console.log("hi");
         console.log("outputMode before switching: " + outputMode);
         setOutputMode("verbose");
-<<<<<<< HEAD
-        console.log("outputMode after switching: " + outputMode);
-=======
-        return "Response mode has been set to VERBOSE"
->>>>>>> 8819eea9408b5fdc7c8aba5b2dfeb620b5334718
+        return "Response mode has been set to VERBOSE";
       }
     }
   };

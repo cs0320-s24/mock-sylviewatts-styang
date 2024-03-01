@@ -19,15 +19,9 @@ const mockedCities: string[][] = [
     "New York City",
     "Yes",
     "9 million",
-    "Humid continental",
+    "continental",
     "United States of America",
   ],
-  [
-    "Chicago",
-    "No",
-    "3 million",
-    "Humid continental",
-    "United States of America",
-  ],
-  ["Tokyo", "Yes", "14 million", "Humid subtropical", "Japan"],
+  ["Chicago", "No", "3 million", "continental", "United States of America"],
+  ["Tokyo", "Yes", "14 million", "subtropical", "Japan"],
 ];
