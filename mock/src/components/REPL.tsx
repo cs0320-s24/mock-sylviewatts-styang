@@ -52,7 +52,12 @@ export default function REPL() {
     ) {
       return "File not loaded";
     } else {
-      return searchCSVMock(args, loadedData, filename);
+      const searchResult = searchCSVMock(args, loadedData, filename);
+      if (searchResult.every((row) => row.length === 0)) {
+        return "Bad arguments for search.";
+      } else {
+        return searchResult;
+      }
     }
   };
 
