@@ -4,7 +4,7 @@
 
 Project name: Mock
 Sylvie Watts (sewatts) and Simon Yang (styang)
-Hours spent: 13?
+Hours spent: 13
 Repo: https://github.com/cs0320-s24/mock-sylviewatts-styang
 
 # Design Choices
