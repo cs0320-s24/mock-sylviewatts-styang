@@ -434,8 +434,8 @@ test("searchClimateContinental success", async ({ page }) => {
   });
 
   expect(secondChild).toEqual(
-    "New York CityYes9 millioncontinentalUnited States of AmericaChicagoNo3"
-    + " millioncontinentalUnited States of America"
+    "New York CityYes9 millioncontinentalUnited States of AmericaChicagoNo3" +
+      " millioncontinentalUnited States of America"
   );
 });
 
@@ -573,8 +573,8 @@ test("running everything", async ({ page }) => {
   expect(fourthChild).toContain("Output table below: ");
   expect(fifthChild).toContain(
     "NameDietAverage LifespanColorClassLittle PenguinCarnivore6BlackBirdBlack" +
-    " BearOmnivore10BlackMammalBoa constrictorCarnivore20GreenReptile" + 
-    "Peregrine falconCarnivore15GreyBird"
+      " BearOmnivore10BlackMammalBoa constrictorCarnivore20GreenReptile" +
+      "Peregrine falconCarnivore15GreyBird"
   );
   expect(sixthChild).toContain("Command: search");
   expect(seventhChild).toContain("Output table below: ");

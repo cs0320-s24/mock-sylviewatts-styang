@@ -7,22 +7,14 @@
  */
 export function searchCSVMock(
   args: string[],
-  loadedData: string[][],
+  loadedData: string[][]
 ): string[][] {
   // Check if the arguments match certain conditions and return mock data accordingly
-  if (
-    args[0] === "Climate" &&
-    args[1] === "continental"
-  ) {
+  if (args[0] === "Climate" && args[1] === "continental") {
     return searchCitiesClimateContinental();
-  } else if (
-    args[0] === "3" &&
-    args[1] === "Black"
-  ) {
+  } else if (args[0] === "3" && args[1] === "Black") {
     return searchAnimals3Black();
-  } else if (
-    args[0] === "Reptile"
-  ) {
+  } else if (args[0] === "Reptile") {
     return searchAnimalsReptile();
   }
   // If no matching conditions are found, return an empty array
