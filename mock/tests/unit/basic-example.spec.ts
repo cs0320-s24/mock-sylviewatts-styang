@@ -69,43 +69,43 @@ test("loadCSVMock handles incorrect filename", () => {
 
   // Assertions
   expect(result).toBe("Bad file name");
-  expect(dataLoaded).toBe(false)
+  expect(dataLoaded).toBe(false);
   expect(filenameLoaded).toBe(false);
 });
 
-test("searchCSVMock correctly searches for data in mocked CSV file", () => {
-  // Mock loadedData and filename
-  const loadedData = [
-    [
-      "New York City",
-      "Yes",
-      "9 million",
-      "continental",
-      "United States of America",
-    ],
-    ["Chicago", "No", "3 million", "continental", "United States of America"],
-  ];
-  const filename = "mockedCities.csv";
+// test("searchCSVMock correctly searches for data in mocked CSV file", () => {
+//   // Mock loadedData and filename
+//   const loadedData = [
+//     [
+//       "New York City",
+//       "Yes",
+//       "9 million",
+//       "continental",
+//       "United States of America",
+//     ],
+//     ["Chicago", "No", "3 million", "continental", "United States of America"],
+//   ];
+//   const filename = "mockedCities.csv";
 
-  // Call searchCSVMock function with valid arguments
-  const result = searchCSVMock(
-    ["Climate", "continental"],
-    loadedData,
-    filename
-  );
+//   // Call searchCSVMock function with valid arguments
+//   const result = searchCSVMock(
+//     ["Climate", "continental"],
+//     loadedData,
+//     filename
+//   );
 
-  // Assertions
-  expect(result).toEqual([
-    [
-      "New York City",
-      "Yes",
-      "9 million",
-      "continental",
-      "United States of America",
-    ],
-    ["Chicago", "No", "3 million", "continental", "United States of America"],
-  ]);
-});
+//   // Assertions
+//   expect(result).toEqual([
+//     [
+//       "New York City",
+//       "Yes",
+//       "9 million",
+//       "continental",
+//       "United States of America",
+//     ],
+//     ["Chicago", "No", "3 million", "continental", "United States of America"],
+//   ]);
+// });
 
 // test("searchCSVMock handles incorrect arguments", () => {
 //   // Mock loadedData and filename

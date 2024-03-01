@@ -41,7 +41,7 @@ export function searchCSVMock(
  * the "climate" column.
  * @returns A 2D array representing the search result.
  */
-export const searchCitiesClimateHumidContinental = (): string[][] => {
+export const searchCitiesClimateContinental = (): string[][] => {
   return [
     [
       "New York City",
