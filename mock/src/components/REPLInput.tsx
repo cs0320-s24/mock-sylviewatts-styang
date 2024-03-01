@@ -3,72 +3,107 @@ import "../styles/main.css";
 import { ControlledInput } from "./ControlledInput";
 import { REPLFunction } from "./REPLFunction";
 
+/**
+ * Props interface for the REPLInput component.
+ */
 interface REPLInputProps {
-  // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands
-  // CHANGED
+  /**
+   * Array containing the history of commands and their outputs.
+   * Each entry in the history can either be a string or a 2D array representing a table.
+   */
   history: (string | string[][])[];
+
+  /**
+   * Function to update the history state.
+   */
   setHistory: Dispatch<SetStateAction<(string | string[][])[]>>;
+
+  /**
+   * Map containing available REPL commands and their corresponding functions.
+   */
   commandMap: Map<string, REPLFunction>;
+
+  /**
+   * Function to set loaded data.
+   * It receives a 2D array of strings as input.
+   */
   setLoadedData: (data: string[][]) => void;
+
+  /**
+   * Determines the output mode of the REPL (brief or verbose).
+   * Can be either "brief" or "verbose".
+   */ 
   outputMode: "brief" | "verbose";
 }
-// You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
-// REPLInput(history: string[], setHistory: Dispatch<SetStateAction<string[]>>)
+
+/**
+ * A component representing the input section of a Read-Eval-Print Loop (REPL).
+ * It allows users to input commands and handles their execution.
+ * @param props The props for the REPLInput component.
+ */
 export function REPLInput(props: REPLInputProps) {
-  // Remember: let React manage state in your webapp.
-  // Manages the contents of the input box
+  // State to hold the input command string
   const [commandString, setCommandString] = useState<string>("");
-  // TODO WITH TA : add a count state
+
+  // State to keep track of the number of times the command has been submitted
   const [count, setCount] = useState<number>(0);
 
-  // Set data
-  //const [data, setData] = useState<string[][]>();
-
-  // This function is triggered when the button is clicked.
+  /**
+   * Function to handle the submission of a command.
+   * @param commandString The input command string.
+   */
   function handleSubmit(commandString: string) {
+    // Increment the submission count
     setCount(count + 1);
-    // CHANGED
 
+    // Split the command string into arguments
     const args = commandString.split(" ");
     const commandName = args[0];
 
+    // Get the corresponding function for the command
     const commandFunction = props.commandMap.get(commandName);
+
+    // Execute the command if it exists, otherwise, show an error message
     if (typeof commandFunction === "undefined") {
       props.setHistory([...props.history, "Command not found: " + commandName]);
     } else {
       const result = commandFunction(args.slice(1));
       if (props.outputMode === "verbose") {
         if (typeof result === "string") {
-          props.setHistory([...props.history, "Command: " + commandName, "Output: " + result]);
+          props.setHistory([
+            ...props.history,
+            "Command: " + commandName,
+            "Output: " + result,
+          ]);
         } else {
-          props.setHistory([...props.history, "Command: " + commandName, "Output table below: ", result]);
+          props.setHistory([
+            ...props.history,
+            "Command: " + commandName,
+            "Output table below: ",
+            result,
+          ]);
         }
       } else {
         props.setHistory([...props.history, result]);
       }
     }
+
+    // Clear the command input field
     setCommandString("");
   }
 
-  /**
-   * We suggest breaking down this component into smaller components, think about the individual pieces
-   * of the REPL and how they connect to each other...
-   */
   return (
     <div className="repl-input">
-      {/* This is a comment within the JSX. Notice that it's a TypeScript comment wrapped in
-            braces, so that React knows it should be interpreted as TypeScript */}
-      {/* I opted to use this HTML tag; you don't need to. It structures multiple input fields
-            into a single unit, which makes it easier for screenreaders to navigate. */}
       <fieldset>
         <legend>Enter a command:</legend>
+        {/* Controlled input component */}
         <ControlledInput
           value={commandString}
           setValue={setCommandString}
           ariaLabel={"Command input"}
         />
       </fieldset>
-      {/* TODO: Currently this button just counts up, can we make it push the contents of the input box to the history?*/}
+      {/* Button to submit the command */}
       <button onClick={() => handleSubmit(commandString)}>
         Submitted {count} times
       </button>

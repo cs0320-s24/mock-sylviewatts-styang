@@ -7,25 +7,27 @@ import { loadCSVMock } from "./LoadCSVMock";
 import { viewCSVMock } from "./ViewCSVMock";
 import { searchCSVMock } from "./SearchCSVMock";
 
-/* 
-  You'll want to expand this component (and others) for the sprints! Remember 
-  that you can pass "props" as function arguments. If you need to handle state 
-  at a higher level, just move up the hooks and pass the state/setter as a prop.
-  
-  This is a great top level component for the REPL. It's a good idea to have organize all components in a component folder.
-  You don't need to do that for this gearup.
-*/
-
-//question: do we want error things printed, like if load, search, or view is called wrong should we tell them when they call it?
-//and also error when commands are not found
+/**
+ * Component representing Mock's REPL interface
+ * @returns A JSX element displaying the REPL command history and input
+ */
 export default function REPL() {
+  // State to store the command history
   const [history, setHistory] = useState<(string | string[][])[]>([]);
+  // State to store loaded data from a CSV file
   const [loadedData, setLoadedData] = useState<string[][] | undefined>(
     undefined
   );
+  // State to store the filename of the loaded CSV file
   const [filename, setFilename] = useState<string | undefined>(undefined);
+  // State to determine the output mode of the REPL (brief or verbose)
   const [outputMode, setOutputMode] = useState<"brief" | "verbose">("brief");
 
+  /**
+   * Wrapper function for loading CSV data.
+   * @param filename The filename of the CSV data to load.
+   * @returns A message indicating the success or failure of the operation.
+   */
   const loadCSVMockWrapper: REPLFunction = (filename: string[]) => {
     if (filename.length != 1) {
       return "Wrong number of arguments, only give filename.";
@@ -33,6 +35,11 @@ export default function REPL() {
     return loadCSVMock(filename, setLoadedData, setFilename);
   };
 
+  /**
+   * Wrapper function for viewing CSV mock data.
+   * @param args Arbitrary field that must be empty
+   * @returns CSV data as string[][] or an error message indicating failure.
+   */
   const viewCSVMockWrapper: REPLFunction = (args: string[]) => {
     if (args.length >= 1) {
       return "Wrong number of arguments, view does not take any.";
@@ -43,6 +50,11 @@ export default function REPL() {
     }
   };
 
+  /**
+   * Wrapper function for searching CSV mock data.
+   * @param args Arguments for specifying the search criteria.
+   * @returns The search results as string [][] or an error message indicating failure.
+   */
   const searchCSVMockWrapper: REPLFunction = (args: string[]) => {
     if (args.length > 2 || args.length < 1) {
       return "Wrong number of arguments, search takes <column> <value> or <value>";
@@ -61,6 +73,11 @@ export default function REPL() {
     }
   };
 
+  /**
+   * Function for changing the output mode of the REPL.
+   * @param args Arbitrary field that must be empty.
+   * @returns A message confirming the change of output mode.
+   */
   const mode: REPLFunction = (args: string[]) => {
     if (args.length >= 1) {
       return "Wrong number of arguments, view does not take any.";
@@ -78,6 +95,7 @@ export default function REPL() {
     }
   };
 
+  // Map containing available REPL commands and their corresponding functions
   const commandMap = new Map<string, REPLFunction>();
   commandMap.set("load_file", loadCSVMockWrapper);
   commandMap.set("view", viewCSVMockWrapper);
@@ -86,11 +104,10 @@ export default function REPL() {
 
   return (
     <div className="repl">
-      {/*This is where your REPLHistory might go... You also may choose to add it within your REPLInput 
-      component or somewhere else depending on your component organization. What are the pros and cons of each? */}
+      {/* Component to display command history */}
       <REPLHistory history={history} />
       <hr></hr>
-      {/* CHANGED */}
+      {/* Component to input commands */}
       <REPLInput
         history={history}
         setHistory={setHistory}

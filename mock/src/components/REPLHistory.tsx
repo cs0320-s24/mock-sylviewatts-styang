@@ -1,10 +1,23 @@
 import "../styles/main.css";
 
+/**
+ * Interface containing history props for REPLHistory component.
+ */
 interface REPLHistoryProps {
-  // TODO: Fill with some shared state tracking all the pushed commands
-  // CHANGED
+  /**
+   * An array containing the history of commands entered into the REPL.
+   * Each element can either be a string representing a single command,
+   * or a nested array representing a table-like structure of commands.
+   */
   history: (string | string[][])[];
 }
+
+/**
+ * Component to display REPL command history.
+ * 
+ * @param props The props containing the history array.
+ * @returns A JSX element displaying the REPL command history.
+ */
 export function REPLHistory(props: REPLHistoryProps) {
   const history = props.history;
 
@@ -21,9 +34,9 @@ export function REPLHistory(props: REPLHistoryProps) {
               <table>
                 <tbody>
                   {command.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
+                    <tr>
                       {row.map((cell, cellIndex) => (
-                        <td key={cellIndex}>{cell}</td>
+                        <td>{cell}</td>
                       ))}
                     </tr>
                   ))}
