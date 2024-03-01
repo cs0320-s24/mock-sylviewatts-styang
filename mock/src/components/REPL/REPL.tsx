@@ -1,11 +1,11 @@
 import { useState } from "react";
-import "../styles/main.css";
+import "../../styles/main.css";
 import { REPLHistory } from "./REPLHistory";
 import { REPLInput } from "./REPLInput";
 import { REPLFunction } from "./REPLFunction";
-import { loadCSVMock } from "./LoadCSVMock";
-import { viewCSVMock } from "./ViewCSVMock";
-import { searchCSVMock } from "./SearchCSVMock";
+import { loadCSVMock } from "../mock-commands/LoadCSVMock";
+import { viewCSVMock } from "../mock-commands/ViewCSVMock";
+import { searchCSVMock } from "../mock-commands/SearchCSVMock";
 
 /**
  * Component representing Mock's REPL interface

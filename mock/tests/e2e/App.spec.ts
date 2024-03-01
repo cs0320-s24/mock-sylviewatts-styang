@@ -1,24 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-/**
-  The general shapes of tests in Playwright Test are:
-    1. Navigate to a URL
-    2. Interact with the page
-    3. Assert something about the page against your expectations
-  Look for this pattern in the tests below!
- */
-
-// If you needed to do something before every test case...
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:8000/");
 });
 
-/**
- * Don't worry about the "async" yet. We'll cover it in more detail
- * for the next sprint. For now, just think about "await" as something
- * you put before parts of your test that might take time to run,
- * like any interaction with the page.
- */
 test("on page load, i see a login button", async ({ page }) => {
   await expect(page.getByLabel("Login")).toBeVisible();
 });
@@ -132,114 +117,127 @@ test("mode functionality", async ({ page }) => {
 /**
  * Tests that calling mode changes output, and that system begins in mode BRIEF
  */
-// test("call mode and check output change for commands", async ({ page }) => {
-//   await page.getByLabel("Login").click();
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("mode");
-//   await page.getByRole("button", { name: "Submitted 0 times" }).click();
+test("call mode and check output change for commands", async ({ page }) => {
+  await page.getByLabel("Login").click();
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("mode");
+  await page.getByRole("button", { name: "Submitted 0 times" }).click();
 
-//   // Tests that mode is initially set as BRIEF
-//   const firstChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[0]?.textContent;
-//   });
+  // Tests that mode is initially set as BRIEF
+  const firstChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[0]?.textContent;
+  });
 
-//   // Calling load in VERBOSE
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("load_file mockedOneColumn.csv");
-//   await page.getByRole("button", { name: "Submitted 1 times" }).click();
+  // Calling load in VERBOSE
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedOneColumn.csv");
+  await page.getByRole("button", { name: "Submitted 1 times" }).click();
 
-//   const secondChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[1]?.textContent;
-//   });
+  const secondChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[1]?.textContent;
+  });
 
-//   const thirdChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[2]?.textContent;
-//   });
+  const thirdChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[2]?.textContent;
+  });
 
-//   // Calling  view in VERBOSE
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("view");
-//   await page.getByRole("button", { name: "Submitted 2 times" }).click();
+  // Calling  view in VERBOSE
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("view");
+  await page.getByRole("button", { name: "Submitted 2 times" }).click();
 
-//   const fourthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[3]?.textContent;
-//   });
+  const fourthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[3]?.textContent;
+  });
 
-//   const fifthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[4]?.textContent;
-//   });
+  const fifthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[4]?.textContent;
+  });
 
-//   const sixthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[5]?.textContent;
-//   });
+  const sixthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[5]?.textContent;
+  });
 
-//   // Calling search in VERBOSE
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("search turtle");
-//   await page.getByRole("button", { name: "Submitted 3 times" }).click();
+  // Calling search in VERBOSE
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search turtle");
+  await page.getByRole("button", { name: "Submitted 3 times" }).click();
 
-//   const seventhChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[6]?.textContent;
-//   });
+  const seventhChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[6]?.textContent;
+  });
 
-//   const eighthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[7]?.textContent;
-//   });
+  const eighthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[7]?.textContent;
+  });
 
-//   // Calling mode in VERBOSE
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("mode");
-//   await page.getByRole("button", { name: "Submitted 4 times" }).click();
+  // Calling mode in VERBOSE
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("mode");
+  await page.getByRole("button", { name: "Submitted 4 times" }).click();
 
-//   const ninthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[8]?.textContent;
-//   });
+  const ninthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[8]?.textContent;
+  });
 
-//   const tenthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[9]?.textContent;
-//   });
+  const tenthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[9]?.textContent;
+  });
 
-//   // Calling load_file in BRIEF
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("load_file mockedOneColumn.csv");
-//   await page.getByRole("button", { name: "Submitted 5 times" }).click();
+  // Calling load_file in BRIEF
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("load_file mockedOneColumn.csv");
+  await page.getByRole("button", { name: "Submitted 5 times" }).click();
 
-//   const eleventhChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[10]?.textContent;
-//   });
+  const eleventhChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[10]?.textContent;
+  });
 
-//   // Calling view in BRIEF
-//   await page.getByLabel("Command input").click();
-//   await page.getByLabel("Command input").fill("view");
-//   await page.getByRole("button", { name: "Submitted 6 times" }).click();
+  // Calling view in BRIEF
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("view");
+  await page.getByRole("button", { name: "Submitted 6 times" }).click();
 
-//   const twelfthChild = await page.evaluate(() => {
-//     const history = document.querySelector(".repl-history");
-//     return history?.children[3]?.textContent;
-//   });
+  const twelfthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[11]?.textContent;
+  });
 
-//   expect(firstChild).toEqual("Response mode set to VERBOSE");
-//   expect(secondChild).toEqual("Command: load_file");
-//   expect(thirdChild).toEqual("Output: Loaded mockedOneColumn.csv");
-//   expect(fourthChild).toEqual("Command: view");
-//   expect(fifthChild).toEqual("Output table below: ");
-//   expect(sixthChild).toEqual("Data");
-//   expect(seventhChild).toEqual("Command: search");
-//   expect(ninthChild).toEqual("Command: mode");
-//   expect(tenthChild).toEqual("Output: Response mode set to BRIEF");
-//   expect(eleventhChild).toEqual("Loaded mockedOneColumn.csv");
-// });
+  // calling search in BRIEF
+  await page.getByLabel("Command input").click();
+  await page.getByLabel("Command input").fill("search turtle");
+  await page.getByRole("button", { name: "Submitted 7 times" }).click();
+
+  const thirteenthChild = await page.evaluate(() => {
+    const history = document.querySelector(".repl-history");
+    return history?.children[12]?.textContent;
+  });
+
+  expect(firstChild).toEqual("Response mode has been set to VERBOSE");
+  expect(secondChild).toEqual("Command: load_file");
+  expect(thirdChild).toEqual("Output: Loaded mockedOneColumn.csv");
+  expect(fourthChild).toEqual("Command: view");
+  expect(fifthChild).toEqual("Output table below: ");
+  expect(sixthChild).toEqual("Data");
+  expect(seventhChild).toEqual("Command: search");
+  expect(eighthChild).toEqual("Output: No matches");
+  expect(ninthChild).toEqual("Command: mode");
+  expect(tenthChild).toEqual("Output: Response mode has been set to BRIEF");
+  expect(eleventhChild).toEqual("Loaded mockedOneColumn.csv");
+  expect(twelfthChild).toEqual("Data");
+  expect(thirteenthChild).toEqual("No matches");
+});
 
 test("load_file success", async ({ page }) => {
   await page.getByLabel("Login").click();
@@ -430,7 +428,8 @@ test("searchClimateContinental success", async ({ page }) => {
   });
 
   expect(secondChild).toEqual(
-    "New York CityYes9 millioncontinentalUnited States of AmericaChicagoNo3 millioncontinentalUnited States of America"
+    "New York CityYes9 millioncontinentalUnited States of AmericaChicagoNo3"
+    + " millioncontinentalUnited States of America"
   );
 });
 
@@ -567,7 +566,9 @@ test("running everything", async ({ page }) => {
   expect(thirdChild).toContain("Command: view");
   expect(fourthChild).toContain("Output table below: ");
   expect(fifthChild).toContain(
-    "NameDietAverage LifespanColorClassLittle PenguinCarnivore6BlackBirdBlack BearOmnivore10BlackMammalBoa constrictorCarnivore20GreenReptilePeregrine falconCarnivore15GreyBird"
+    "NameDietAverage LifespanColorClassLittle PenguinCarnivore6BlackBirdBlack" +
+    " BearOmnivore10BlackMammalBoa constrictorCarnivore20GreenReptile" + 
+    "Peregrine falconCarnivore15GreyBird"
   );
   expect(sixthChild).toContain("Command: search");
   expect(seventhChild).toContain("Output table below: ");
