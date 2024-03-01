@@ -4,10 +4,17 @@ test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:8000/");
 });
 
+/**
+ * Ensures that on page load, a login button is visible.
+ */
 test("on page load, i see a login button", async ({ page }) => {
   await expect(page.getByLabel("Login")).toBeVisible();
 });
 
+/**
+ * Ensures that on page load, the input box and sign out box are not visible until login.
+ * After clicking the login button, the sign out box and input box become visible.
+ */
 test("on page load, i dont see the input box and sign out box until login", async ({
   page,
 }) => {
@@ -22,6 +29,9 @@ test("on page load, i dont see the input box and sign out box until login", asyn
   await expect(page.getByLabel("Login")).not.toBeVisible();
 });
 
+/**
+ * Tests logging in, signing out, and logging back in.
+ */
 test("after logging in, I can sign out and can log back in again", async ({
   page,
 }) => {
@@ -45,6 +55,9 @@ test("after logging in, I can sign out and can log back in again", async ({
   await expect(page.getByLabel("Login")).not.toBeVisible();
 });
 
+/**
+ * Ensures a button is visible on page load.
+ */
 test("on page load, i see a button", async ({ page }) => {
   await page.getByLabel("Login").click();
   await expect(
@@ -52,6 +65,9 @@ test("on page load, i see a button", async ({ page }) => {
   ).toBeVisible();
 });
 
+/**
+ * Tests behavior when a non-existing command is entered.
+ */
 test("non-existing command tells user command not found", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").fill("Awesome command");
@@ -64,6 +80,9 @@ test("non-existing command tells user command not found", async ({ page }) => {
   expect(firstChild).toEqual("Command not found: Awesome");
 });
 
+/**
+ * Tests behavior when a button is clicked and its label increments.
+ */
 test("after I click the button, its label increments", async ({ page }) => {
   await page.getByLabel("Login").click();
   await expect(
@@ -75,6 +94,9 @@ test("after I click the button, its label increments", async ({ page }) => {
   ).toBeVisible();
 });
 
+/**
+ * Tests behavior when an empty command is entered.
+ */
 test("empty command submitted gives command not found", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").fill("");
@@ -87,6 +109,9 @@ test("empty command submitted gives command not found", async ({ page }) => {
   expect(firstChild).toEqual("Command not found: ");
 });
 
+/**
+ * Tests the functionality of the 'mode' command, ensuring it changes the response mode.
+ */
 test("mode functionality", async ({ page }) => {
   await page.getByLabel("Login").click();
 
@@ -245,6 +270,9 @@ test("call mode and check output change for commands", async ({ page }) => {
   expect(thirteenthChild).toEqual("No matches");
 });
 
+/**
+ * Tests the 'load_file' command for successful file loading.
+ */
 test("load_file success", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -259,6 +287,9 @@ test("load_file success", async ({ page }) => {
   expect(firstChild).toEqual("Loaded mockedAnimals.csv");
 });
 
+/**
+ * Tests the 'load_file' command when wrong arguments are provided.
+ */
 test("load_file wrong arguments", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -273,6 +304,9 @@ test("load_file wrong arguments", async ({ page }) => {
   expect(firstChild).toEqual("Wrong number of arguments, only give filename.");
 });
 
+/**
+ * Tests the 'load_file' command when a bad filename is provided.
+ */
 test("load_file bad filename", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -287,7 +321,9 @@ test("load_file bad filename", async ({ page }) => {
   expect(firstChild).toEqual("Bad file name");
 });
 
-//test view
+/**
+ * Tests the 'view' command for successful viewing of data.
+ */
 test("view success", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -308,6 +344,9 @@ test("view success", async ({ page }) => {
   );
 });
 
+/**
+ * Tests the 'view' command when executed before loading a file.
+ */
 test("view before load", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -322,6 +361,9 @@ test("view before load", async ({ page }) => {
   expect(firstChild).toContain("File not loaded");
 });
 
+/**
+ * Tests the 'view' command when wrong arguments are provided.
+ */
 test("view wrong arguments", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -342,6 +384,9 @@ test("view wrong arguments", async ({ page }) => {
   );
 });
 
+/**
+ * Tests the 'view' command when the dataset has only one column.
+ */
 test("view dataset one column", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -360,6 +405,9 @@ test("view dataset one column", async ({ page }) => {
   expect(secondChild).toEqual("Data");
 });
 
+/**
+ * Tests the 'view' command when the dataset is empty.
+ */
 test("view empty dataset", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -380,6 +428,9 @@ test("view empty dataset", async ({ page }) => {
   expect(secondChild).toEqual("");
 });
 
+/**
+ * Tests the 'view' command when the dataset is an array containingh empty arrays.
+ */
 test("view empty array dataset", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -400,6 +451,9 @@ test("view empty array dataset", async ({ page }) => {
   expect(secondChild).toEqual("");
 });
 
+/**
+ * Tests the 'searchReptile' command for successful search results.
+ */
 test("searchReptile success", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -418,6 +472,9 @@ test("searchReptile success", async ({ page }) => {
   expect(secondChild).toEqual("Boa constrictorCarnivore20GreenReptile");
 });
 
+/**
+ * Tests the 'searchClimateContinental' command for successful search results.
+ */
 test("searchClimateContinental success", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -439,6 +496,9 @@ test("searchClimateContinental success", async ({ page }) => {
   );
 });
 
+/**
+ * Tests the 'search3Black' command for successful search results.
+ */
 test("search3Black success", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -456,7 +516,9 @@ test("search3Black success", async ({ page }) => {
 
   expect(secondChild).toEqual("Little PenguinCarnivore6BlackBird");
 });
-
+/**
+ * Tests the 'search' command when executed before loading a file.
+ */
 test("search before load", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -471,6 +533,9 @@ test("search before load", async ({ page }) => {
   expect(firstChild).toContain("File not loaded");
 });
 
+/**
+ * Tests the 'search' command when wrong number of arguments are provided.
+ */
 test("search wrong number of arguments", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -491,6 +556,9 @@ test("search wrong number of arguments", async ({ page }) => {
   );
 });
 
+/**
+ * Tests the 'search' command when no results are found.
+ */
 test("search no results", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
@@ -509,6 +577,9 @@ test("search no results", async ({ page }) => {
   expect(secondChild).toEqual("No matches");
 });
 
+/**
+ * Tests the execution of multiple commands in sequence.
+ */
 test("running everything", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
