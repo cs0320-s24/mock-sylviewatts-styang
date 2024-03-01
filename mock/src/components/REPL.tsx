@@ -64,9 +64,9 @@ export default function REPL() {
     ) {
       return "File not loaded";
     } else {
-      const searchResult = searchCSVMock(args, loadedData, filename);
+      const searchResult = searchCSVMock(args, loadedData);
       if (searchResult.every((row) => row.length === 0)) {
-        return "Bad arguments for search.";
+        return "No matches";
       } else {
         return searchResult;
       }

@@ -319,7 +319,7 @@ test("search wrong number of arguments", async ({ page }) => {
   );
 });
 
-test("search bad arguments", async ({ page }) => {
+test("search no results", async ({ page }) => {
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").click();
   await page.getByLabel("Command input").fill("load_file mockedAnimals.csv");
@@ -334,7 +334,7 @@ test("search bad arguments", async ({ page }) => {
     return history?.children[1]?.textContent;
   });
 
-  expect(secondChild).toContain("Bad arguments for search.");
+  expect(secondChild).toEqual("No matches");
 });
 
 test("running everything", async ({ page }) => {

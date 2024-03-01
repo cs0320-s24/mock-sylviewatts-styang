@@ -8,27 +8,20 @@
 export function searchCSVMock(
   args: string[],
   loadedData: string[][],
-  filename: string
 ): string[][] {
   // Check if the arguments match certain conditions and return mock data accordingly
   if (
-    args.length >= 2 &&
     args[0] === "Climate" &&
-    args[1] === "continental" &&
-    filename === "mockedCities.csv"
+    args[1] === "continental"
   ) {
     return searchCitiesClimateContinental();
   } else if (
-    args.length >= 2 &&
     args[0] === "3" &&
-    args[1] === "Black" &&
-    filename === "mockedAnimals.csv"
+    args[1] === "Black"
   ) {
     return searchAnimals3Black();
   } else if (
-    args.length == 1 &&
-    args[0] === "Reptile" &&
-    filename === "mockedAnimals.csv"
+    args[0] === "Reptile"
   ) {
     return searchAnimalsReptile();
   }
