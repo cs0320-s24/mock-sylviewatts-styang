@@ -9,6 +9,9 @@ export function getFileToData() {
   // Populate the map with mocked data for animals and cities
   fileToData.set("mockedAnimals.csv", mockedAnimals);
   fileToData.set("mockedCities.csv", mockedCities);
+  fileToData.set("mockedOneColumn.csv", mockedOneColumn);
+  fileToData.set("mockedEmptyDataset.csv", mockedEmptyDataset);
+  fileToData.set("mockedEmptyArrayDataset.csv", mockedEmptyArrayDataset);
 
   // Return the populated map
   return fileToData;
@@ -36,3 +39,12 @@ const mockedCities: string[][] = [
   ["Chicago", "No", "3 million", "continental", "United States of America"],
   ["Tokyo", "Yes", "14 million", "subtropical", "Japan"],
 ];
+
+// Mocked data one column one row
+const mockedOneColumn: string[][] = [["Data"]];
+
+// Mocked empty dataset
+const mockedEmptyDataset: string[][] = [];
+
+// Mocked dataset of empty arrays
+const mockedEmptyArrayDataset: string[][] = [[], []];
