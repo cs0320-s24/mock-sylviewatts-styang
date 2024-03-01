@@ -29,7 +29,7 @@ export default function REPL() {
    * @returns A message indicating the success or failure of the operation.
    */
   const loadCSVMockWrapper: REPLFunction = (filename: string[]) => {
-    if (filename.length > 1) {
+    if (filename.length != 1) {
       return "Wrong number of arguments, only give filename.";
     }
     return loadCSVMock(filename, setLoadedData, setFilename);
@@ -64,7 +64,12 @@ export default function REPL() {
     ) {
       return "File not loaded";
     } else {
-      return searchCSVMock(args, loadedData, filename);
+      const searchResult = searchCSVMock(args, loadedData, filename);
+      if (searchResult.every((row) => row.length === 0)) {
+        return "Bad arguments for search.";
+      } else {
+        return searchResult;
+      }
     }
   };
 
@@ -78,9 +83,12 @@ export default function REPL() {
       return "Wrong number of arguments, view does not take any.";
     } else {
       if (outputMode === "verbose") {
+        console.log("outputMode before switching: " + outputMode);
         setOutputMode("brief");
         return "Response mode has been set to BRIEF";
       } else {
+        console.log("hi");
+        console.log("outputMode before switching: " + outputMode);
         setOutputMode("verbose");
         return "Response mode has been set to VERBOSE";
       }
