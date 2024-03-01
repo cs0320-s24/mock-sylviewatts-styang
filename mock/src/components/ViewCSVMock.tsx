@@ -1,9 +1,9 @@
-//or figure out how to do it without passing anything in
+/**
+ * Mock function to view loaded data from a CSV file.
+ * @param loadedData The data loaded from the CSV file.
+ * @returns The loaded data as is.
+ */
 export function viewCSVMock(loadedData: string[][]): string[][] {
-  //change this to be a 2D array or a table (if a table then need to change REPL Function)
-  // const concatenatedString = loadedData
-  //   .map((row) => row.join(", "))
-  //   .join("; ");
-  // return concatenatedString;
+  // Simply returns the loaded data without any modifications
   return loadedData;
 }

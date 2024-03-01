@@ -1,29 +1,16 @@
-import { REPLFunction } from "./REPLFunction";
-
-// interface actionProps {
-//   value: string;
-// }
-
-// interface columnIDProp extends actionProps {
-//   columnID: number;
-// }
-
-// interface columnNameProp extends actionProps {
-//   columnName: string;
-// }
-
+/**
+ * Mock function to search for data in a CSV file based on provided arguments.
+ * @param args The arguments provided for the search.
+ * @param loadedData The data loaded from the CSV file.
+ * @param filename The name of the CSV file being searched.
+ * @returns A 2D array representing the search result.
+ */
 export function searchCSVMock(
   args: string[],
   loadedData: string[][],
   filename: string
 ): string[][] {
-  // need to fix / fill (can use if/then statements based on args)
-  //TODO:
-  //if loadedData from map's filename is cities call search citiies
-  //otherwise if two arguments call searchAnimals3Black
-  //otherwise call searchAnimalsReptile
-
-  //how mocked should it be? like i could actually check that arg is an int, and the value is the value we're looking for or i could just pretend
+  // Check if the arguments match certain conditions and return mock data accordingly
   if (
     args.length >= 2 &&
     args[0] === "Climate" &&
@@ -45,9 +32,15 @@ export function searchCSVMock(
   ) {
     return searchAnimalsReptile();
   }
+  // If no matching conditions are found, return an empty array
   return [[]];
 }
 
+/**
+ * Mock function to search for cities with a Humid continental climate within
+ * the "climate" column.
+ * @returns A 2D array representing the search result.
+ */
 export const searchCitiesClimateHumidContinental = (): string[][] => {
   return [
     [
@@ -67,10 +60,18 @@ export const searchCitiesClimateHumidContinental = (): string[][] => {
   ];
 };
 
+/**
+ * Mock function to search for animals that contain "black" in column index 3.
+ * @returns A 2D array representing the search result.
+ */
 export const searchAnimals3Black = (): string[][] => {
   return [["Little Penguin", "Carnivore", "6", "Black", "Bird"]];
 };
 
+/**
+ * Mock function to search for reptiles among animals.
+ * @returns A 2D array representing the search result.
+ */
 export const searchAnimalsReptile = (): string[][] => {
   return [["Boa constrictor", "Carnivore", "20", "Green", "Reptile"]];
 };
